@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>مكتب الهندسة والبناء لتجهيز الكوادر والمقاولات المحدودة</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --gold: #b8975a;
+      --gold-light: #d4b483;
+      --dark: #0e0e0e;
+      --mid: #1a1a1a;
+      --light: #f5f2ec;
+      --text-muted: #7a7a7a;
+      --white: #ffffff;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Cairo', sans-serif; background: var(--light); color: var(--dark); overflow-x: hidden; }
+
+    /* NAVBAR */
+    nav {
+      position: fixed; top: 0; right: 0; left: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.2rem 5vw;
+      background: rgba(14,14,14,0.96); backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(184,151,90,0.2);
+    }
+    .nav-logo { display: flex; align-items: center; gap: 0.8rem; }
+    .nav-logo .icon { width: 42px; height: 42px; border: 1.5px solid var(--gold); display: flex; align-items: center; justify-content: center; color: var(--gold); font-size: 1.3rem; }
+    .nav-logo span { font-weight: 700; font-size: 0.95rem; color: var(--white); line-height: 1.3; }
+    .nav-logo small { color: var(--gold); font-size: 0.7rem; font-weight: 300; display: block; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { color: rgba(255,255,255,0.75); text-decoration: none; font-size: 0.9rem; transition: color 0.25s; }
+    .nav-links a:hover { color: var(--gold); }
+    .nav-cta { background: var(--gold); color: var(--dark); border: none; padding: 0.55rem 1.4rem; font-family: 'Cairo', sans-serif; font-weight: 700; font-size: 0.85rem; cursor: pointer; transition: background 0.25s; }
+    .nav-cta:hover { background: var(--gold-light); }
+
+    /* HERO */
+    #hero { min-height: 100vh; background: var(--dark); display: flex; align-items: center; position: relative; overflow: hidden; padding: 8rem 5vw 4rem; }
+    .hero-grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(184,151,90,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(184,151,90,0.06) 1px, transparent 1px); background-size: 60px 60px; }
+    .hero-content { position: relative; z-index: 2; max-width: 680px; }
+    .hero-tag { display: inline-block; border: 1px solid var(--gold); color: var(--gold); font-size: 0.75rem; font-weight: 600; padding: 0.35rem 1rem; letter-spacing: 0.12em; margin-bottom: 2rem; animation: fadeUp 0.8s ease both; }
+    .hero-title { font-size: clamp(2.2rem, 5vw, 4rem); font-weight: 900; line-height: 1.15; color: var(--white); animation: fadeUp 0.8s 0.15s ease both; }
+    .hero-title .accent { color: var(--gold); }
+    .hero-sub { margin-top: 1.5rem; font-size: 1.05rem; font-weight: 300; color: rgba(255,255,255,0.6); line-height: 1.8; animation: fadeUp 0.8s 0.3s ease both; }
+    .hero-actions { margin-top: 2.5rem; display: flex; gap: 1rem; flex-wrap: wrap; animation: fadeUp 0.8s 0.45s ease both; }
+    .btn-primary { background: var(--gold); color: var(--dark); padding: 0.85rem 2rem; font-family: 'Cairo', sans-serif; font-weight: 700; font-size: 0.95rem; border: none; cursor: pointer; transition: background 0.25s, transform 0.2s; }
+    .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); }
+    .btn-outline { background: transparent; color: var(--white); padding: 0.85rem 2rem; font-family: 'Cairo', sans-serif; font-weight: 600; font-size: 0.95rem; border: 1px solid rgba(255,255,255,0.3); cursor: pointer; transition: border-color 0.25s, color 0.25s; }
+    .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+    .hero-stats { position: absolute; left: 5vw; bottom: 4rem; z-index: 2; display: flex; gap: 3rem; animation: fadeUp 0.8s 0.6s ease both; }
+    .stat-item { text-align: center; }
+    .stat-num { font-size: 2rem; font-weight: 900; color: var(--gold); line-height: 1; }
+    .stat-label { font-size: 0.75rem; color: rgba(255,255,255,0.5); margin-top: 0.25rem; }
+    .hero-img { position: absolute; left: 0; top: 0; bottom: 0; width: 42%; overflow: hidden; opacity: 0.18; }
+    .hero-img-inner { width: 100%; height: 100%; background: linear-gradient(135deg, #b8975a 0%, #4a3c28 100%); clip-path: polygon(15% 0%, 100% 0%, 100% 100%, 0% 100%); }
+
+    /* SECTION HEADER */
+    .section-header { text-align: center; margin-bottom: 4rem; }
+    .section-tag { display: inline-block; color: var(--gold); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.15em; margin-bottom: 0.75rem; }
+    .section-title { font-size: clamp(1.6rem, 3vw, 2.4rem); font-weight: 900; line-height: 1.2; }
+    .section-line { width: 48px; height: 2px; background: var(--gold); margin: 1rem auto 0; }
+
+    /* ABOUT */
+    #about { padding: 7rem 5vw; background: var(--white); }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+    .about-visual { position: relative; height: 400px; }
+    .about-block { position: absolute; background: var(--mid); color: var(--white); }
+    .about-block.main { inset: 0 40px 40px 0; display: flex; align-items: center; justify-content: center; font-size: 5rem; }
+    .about-block.accent { width: 180px; height: 180px; bottom: 0; right: 0; background: var(--gold); display: flex; align-items: center; justify-content: center; }
+    .about-block.accent span { font-size: 2.5rem; font-weight: 900; color: var(--dark); line-height: 1; text-align: center; }
+    .about-text h3 { font-size: 1.8rem; font-weight: 900; margin-bottom: 1.2rem; }
+    .about-text p { color: var(--text-muted); line-height: 1.9; font-size: 0.95rem; margin-bottom: 1rem; }
+    .about-features { margin-top: 1.5rem; display: flex; flex-direction: column; gap: 0.75rem; }
+    .about-feature { display: flex; align-items: center; gap: 0.75rem; font-size: 0.9rem; font-weight: 600; }
+    .about-feature::before { content: ''; width: 8px; height: 8px; background: var(--gold); flex-shrink: 0; }
+
+    /* SERVICES */
+    #services { padding: 7rem 5vw; background: var(--light); }
+    .services-intro { text-align: center; color: var(--text-muted); font-size: 0.95rem; margin-top: -2.5rem; margin-bottom: 3.5rem; }
+    .services-two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+    .service-pillar { background: var(--white); padding: 2.5rem; border-top: 3px solid var(--gold); transition: box-shadow 0.3s; }
+    .service-pillar:hover { box-shadow: 0 8px 32px rgba(184,151,90,0.12); }
+    .pillar-header { display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 1.2rem; }
+    .pillar-num { background: var(--gold); color: var(--dark); font-weight: 900; font-size: 0.78rem; padding: 0.3rem 0.7rem; white-space: nowrap; margin-top: 0.25rem; flex-shrink: 0; }
+    .pillar-icon { font-size: 1.8rem; margin-bottom: 0.3rem; }
+    .pillar-title { font-size: 1.1rem; font-weight: 800; line-height: 1.3; }
+    .pillar-intro { font-size: 0.88rem; color: var(--text-muted); margin-bottom: 1.1rem; line-height: 1.7; border-bottom: 1px solid #ebe8e2; padding-bottom: 1rem; }
+    .pillar-list { list-style: none; display: flex; flex-direction: column; gap: 0.7rem; }
+    .pillar-list li { font-size: 0.9rem; line-height: 1.6; padding-right: 1.2rem; position: relative; color: var(--dark); }
+    .pillar-list li::before { content: ''; position: absolute; right: 0; top: 0.65em; width: 6px; height: 6px; background: var(--gold); }
+
+    /* PROJECTS */
+    #projects { padding: 7rem 5vw; background: var(--dark); }
+    #projects .section-title { color: var(--white); }
+    .projects-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+    .project-card { position: relative; overflow: hidden; aspect-ratio: 4/3; background: var(--mid); display: flex; align-items: flex-end; }
+    .project-card .proj-bg { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 4rem; opacity: 0.15; background: linear-gradient(135deg, #2a2a2a, #1a1a1a); }
+    .proj-info { position: relative; z-index: 2; padding: 1.5rem; background: linear-gradient(transparent, rgba(0,0,0,0.9)); width: 100%; }
+    .proj-info h4 { color: var(--white); font-size: 1rem; font-weight: 700; }
+    .proj-info span { color: var(--gold); font-size: 0.78rem; }
+    .proj-tag { position: absolute; top: 1rem; right: 1rem; z-index: 2; background: var(--gold); color: var(--dark); font-size: 0.7rem; font-weight: 700; padding: 0.2rem 0.6rem; }
+
+    /* CONTACT */
+    #contact { padding: 7rem 5vw; background: var(--white); }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1.4fr; gap: 5rem; align-items: start; }
+    .contact-info h3 { font-size: 1.6rem; font-weight: 900; margin-bottom: 1rem; }
+    .contact-info p { color: var(--text-muted); line-height: 1.8; font-size: 0.9rem; }
+    .contact-items { margin-top: 2rem; display: flex; flex-direction: column; gap: 1.2rem; }
+    .contact-item { display: flex; align-items: center; gap: 1rem; }
+    .contact-item .ci-icon { width: 40px; height: 40px; background: var(--light); display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0; }
+    .contact-item .ci-text { font-size: 0.88rem; }
+    .contact-item .ci-label { color: var(--text-muted); font-size: 0.75rem; }
+    .contact-form { display: flex; flex-direction: column; gap: 1rem; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+    .form-group label { font-size: 0.8rem; font-weight: 600; color: var(--text-muted); }
+    .form-group input, .form-group textarea, .form-group select { border: 1.5px solid #e0ddd7; background: var(--light); padding: 0.85rem 1rem; font-family: 'Cairo', sans-serif; font-size: 0.9rem; color: var(--dark); outline: none; transition: border-color 0.25s; resize: none; }
+    .form-group input:focus, .form-group textarea:focus, .form-group select:focus { border-color: var(--gold); }
+    .form-submit { background: var(--dark); color: var(--white); border: none; padding: 1rem 2rem; font-family: 'Cairo', sans-serif; font-weight: 700; font-size: 0.95rem; cursor: pointer; transition: background 0.25s; margin-top: 0.5rem; }
+    .form-submit:hover { background: var(--gold); color: var(--dark); }
+
+    /* FOOTER */
+    footer { background: var(--dark); padding: 2.5rem 5vw; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; border-top: 1px solid rgba(184,151,90,0.2); }
+    footer p { color: rgba(255,255,255,0.4); font-size: 0.8rem; }
+    footer .footer-gold { color: var(--gold); }
+
+    /* ANIMATIONS */
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+    .reveal { opacity: 0; transform: translateY(32px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      .projects-grid { grid-template-columns: 1fr 1fr; }
+      .about-grid { grid-template-columns: 1fr; }
+      .about-visual { height: 260px; }
+      .contact-grid { grid-template-columns: 1fr; }
+      .hero-stats { gap: 1.5rem; }
+      .hero-img { display: none; }
+    }
+    @media (max-width: 700px) {
+      .services-two-col { grid-template-columns: 1fr; }
+      .projects-grid { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav>
+  <div class="nav-logo">
+    <div class="icon">🏗</div>
+    <span>مكتب الهندسة والبناء<small>لتجهيز الكوادر والمقاولات المحدودة</small></span>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#about">عن المكتب</a></li>
+    <li><a href="#services">خدماتنا</a></li>
+    <li><a href="#projects">مشاريعنا</a></li>
+    <li><a href="#contact">تواصل معنا</a></li>
+  </ul>
+  <button class="nav-cta" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">احصل على عرض</button>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-img"><div class="hero-img-inner"></div></div>
+  <div class="hero-content">
+    <div class="hero-tag">شركة هندسية معتمدة · مقاولات محدودة</div>
+    <h1 class="hero-title">نبني <span class="accent">المستقبل</span><br/>بأيدٍ مؤهّلة</h1>
+    <p class="hero-sub">مكتب الهندسة والبناء لتجهيز الكوادر والمقاولات المحدودة —<br/>خبرة في تأهيل الكوادر الهندسية وتنفيذ المشاريع الإنشائية بأعلى المعايير.</p>
+    <div class="hero-actions">
+      <button class="btn-primary" onclick="document.getElementById('services').scrollIntoView({behavior:'smooth'})">استكشف خدماتنا</button>
+      <button class="btn-outline" onclick="document.getElementById('projects').scrollIntoView({behavior:'smooth'})">مشاريعنا</button>
+    </div>
+  </div>
+  <div class="hero-stats">
+    <div class="stat-item"><div class="stat-num">+١٥</div><div class="stat-label">سنة خبرة</div></div>
+    <div class="stat-item"><div class="stat-num">+٢٠٠</div><div class="stat-label">مشروع منجز</div></div>
+    <div class="stat-item"><div class="stat-num">+٥٠٠</div><div class="stat-label">كادر مؤهَّل</div></div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-header reveal">
+    <div class="section-tag">● من نحن</div>
+    <h2 class="section-title">شركاؤك في كل مرحلة إنشائية</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="about-grid">
+    <div class="about-visual reveal">
+      <div class="about-block main">🏛️</div>
+      <div class="about-block accent"><span>ISO<br/><small style="font-size:0.9rem">معتمد</small></span></div>
+    </div>
+    <div class="about-text reveal">
+      <h3>مكتب متكامل للهندسة والمقاولات</h3>
+      <p>تأسّس مكتبنا بهدف تقديم حلول هندسية متكاملة تجمع بين تجهيز وتأهيل الكوادر البشرية وتنفيذ المشاريع الإنشائية بكفاءة عالية.</p>
+      <p>نعمل وفق أحدث المعايير الهندسية والسلامة، ونحرص على تسليم كل مشروع في الوقت المحدد وضمن الميزانية المتفق عليها.</p>
+      <div class="about-features">
+        <div class="about-feature">تأهيل وتدريب الكوادر الهندسية والفنية</div>
+        <div class="about-feature">تنفيذ المشاريع الإنشائية والمدنية</div>
+        <div class="about-feature">إدارة المشاريع والإشراف الهندسي</div>
+        <div class="about-feature">الاستشارات الهندسية والتصميم</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="section-header reveal">
+    <div class="section-tag">● خدماتنا</div>
+    <h2 class="section-title">ما نقدّمه لك</h2>
+    <div class="section-line"></div>
+  </div>
+  <p class="services-intro reveal">تنقسم خدماتنا إلى قسمين رئيسيين</p>
+
+  <div class="services-two-col reveal">
+
+    <div class="service-pillar">
+      <div class="pillar-header">
+        <div class="pillar-num">أولاً</div>
+        <div>
+          <div class="pillar-icon">👷</div>
+          <h3 class="pillar-title">تجهيز وتطوير الكوادر</h3>
+        </div>
+      </div>
+      <p class="pillar-intro">نقدّم خدمات تأهيل وتجهيز الكوادر البشرية من خلال:</p>
+      <ul class="pillar-list">
+        <li>التدريب على السلامة المهنية وفق المعايير المعتمدة</li>
+        <li>تطوير الخبرات العملية والمهنية</li>
+        <li>رفع كفاءة العاملين بما ينسجم مع متطلبات بيئة العمل</li>
+      </ul>
+    </div>
+
+    <div class="service-pillar">
+      <div class="pillar-header">
+        <div class="pillar-num">ثانياً</div>
+        <div>
+          <div class="pillar-icon">🏗️</div>
+          <h3 class="pillar-title">خدمات المشاريع والأعمال الميدانية</h3>
+        </div>
+      </div>
+      <p class="pillar-intro">نوفّر تنفيذ مشاريع وأعمال محدودة النطاق تشمل:</p>
+      <ul class="pillar-list">
+        <li>الأعمال الهندسية والتقنية</li>
+        <li>الإشراف الهندسي ومتابعة التنفيذ</li>
+        <li>إنجاز بعض الأعمال والإنهاءات</li>
+        <li>تجهيز المواد أو المتطلبات الخاصة بالمشروع</li>
+        <li>معالجة مشاكل الترميم أو إعادة التأهيل</li>
+        <li>تنفيذ المقاولات الصغيرة</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-header reveal">
+    <div class="section-tag" style="color:var(--gold-light)">● أعمالنا</div>
+    <h2 class="section-title">مشاريع مختارة</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="projects-grid reveal">
+    <div class="project-card">
+      <div class="proj-bg">🏢</div>
+      <div class="proj-tag">سكني</div>
+      <div class="proj-info"><h4>مجمع الفرات السكني</h4><span>بغداد · ٢٠٢٣</span></div>
+    </div>
+    <div class="project-card">
+      <div class="proj-bg">🏭</div>
+      <div class="proj-tag">صناعي</div>
+      <div class="proj-info"><h4>مصنع الإنتاج الغذائي</h4><span>البصرة · ٢٠٢٣</span></div>
+    </div>
+    <div class="project-card">
+      <div class="proj-bg">🏫</div>
+      <div class="proj-tag">تعليمي</div>
+      <div class="proj-info"><h4>مركز التدريب الهندسي</h4><span>أربيل · ٢٠٢٢</span></div>
+    </div>
+    <div class="project-card">
+      <div class="proj-bg">🛣️</div>
+      <div class="proj-tag">بنية تحتية</div>
+      <div class="proj-info"><h4>مشروع تطوير الطرق</h4><span>الموصل · ٢٠٢٢</span></div>
+    </div>
+    <div class="project-card">
+      <div class="proj-bg">🏪</div>
+      <div class="proj-tag">تجاري</div>
+      <div class="proj-info"><h4>المركز التجاري الجديد</h4><span>كربلاء · ٢٠٢١</span></div>
+    </div>
+    <div class="project-card">
+      <div class="proj-bg">🏥</div>
+      <div class="proj-tag">صحي</div>
+      <div class="proj-info"><h4>مجمع العيادات الطبية</h4><span>النجف · ٢٠٢١</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-header reveal">
+    <div class="section-tag">● تواصل معنا</div>
+    <h2 class="section-title">ابدأ مشروعك معنا</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="contact-grid">
+    <div class="contact-info reveal">
+      <h3>نحن هنا لخدمتك</h3>
+      <p>سواء كنت تبحث عن كوادر مؤهلة أو تريد تنفيذ مشروع إنشائي، فريقنا جاهز للإجابة على جميع استفساراتك.</p>
+      <div class="contact-items">
+        <div class="contact-item">
+          <div class="ci-icon">📍</div>
+          <div class="ci-text"><div class="ci-label">الموقع</div>بغداد، العراق</div>
+        </div>
+        <div class="contact-item">
+          <div class="ci-icon">📞</div>
+          <div class="ci-text"><div class="ci-label">الهاتف</div>+964 XXX XXX XXXX</div>
+        </div>
+        <div class="contact-item">
+          <div class="ci-icon">✉️</div>
+          <div class="ci-text"><div class="ci-label">البريد الإلكتروني</div>info@engineering-office.iq</div>
+        </div>
+        <div class="contact-item">
+          <div class="ci-icon">🕐</div>
+          <div class="ci-text"><div class="ci-label">ساعات العمل</div>الأحد – الخميس: ٨ص – ٥م</div>
+        </div>
+      </div>
+    </div>
+    <div class="contact-form reveal">
+      <div class="form-row">
+        <div class="form-group">
+          <label>الاسم الكامل</label>
+          <input type="text" placeholder="أدخل اسمك" />
+        </div>
+        <div class="form-group">
+          <label>رقم الهاتف</label>
+          <input type="tel" placeholder="+964 ..." />
+        </div>
+      </div>
+      <div class="form-group">
+        <label>البريد الإلكتروني</label>
+        <input type="email" placeholder="example@email.com" />
+      </div>
+      <div class="form-group">
+        <label>نوع الخدمة</label>
+        <select>
+          <option value="">اختر نوع الخدمة</option>
+          <option>تجهيز وتطوير الكوادر</option>
+          <option>التدريب على السلامة المهنية</option>
+          <option>أعمال هندسية وتقنية</option>
+          <option>إشراف هندسي ومتابعة تنفيذ</option>
+          <option>أعمال الترميم وإعادة التأهيل</option>
+          <option>مقاولات صغيرة</option>
+          <option>تجهيز مواد ومتطلبات المشروع</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>تفاصيل المشروع</label>
+        <textarea rows="5" placeholder="اكتب تفاصيل مشروعك أو استفسارك هنا..."></textarea>
+      </div>
+      <button class="form-submit" onclick="handleSubmit(event)">إرسال الطلب ←</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© ٢٠٢٤ <span class="footer-gold">مكتب الهندسة والبناء لتجهيز الكوادر والمقاولات المحدودة</span>. جميع الحقوق محفوظة.</p>
+  <p style="color:rgba(255,255,255,0.3);font-size:0.75rem">جودة · احترافية · التزام</p>
+</footer>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  reveals.forEach(r => observer.observe(r));
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    const btn = e.target;
+    btn.textContent = '✓ تم إرسال طلبك بنجاح';
+    btn.style.background = '#2a7a4b';
+    btn.style.color = '#fff';
+    setTimeout(() => { btn.textContent = 'إرسال الطلب ←'; btn.style.background = ''; btn.style.color = ''; }, 3000);
+  }
+
+  window.addEventListener('scroll', () => {
+    document.querySelector('nav').style.borderBottomColor = window.scrollY > 60 ? 'rgba(184,151,90,0.4)' : 'rgba(184,151,90,0.2)';
+  });
+</script>
+</body>
+</html>
